@@ -11,8 +11,15 @@ class Board:
                       ["", "", "", "", "", "", ""],
                       ["", "", "", "", "", "", ""]]
 
+    def welcome(self):
+        print("CONNECT FOUR")
+        print("---------------------------")
+
     def printBoard(self):
-        pass
+        print("\n     A    B    C    D    E    F    G  ", end="")
+        for r in range(self.rows):
+            print("\n   +----+----+----+----+----+----+----+", end="")
+            print(r, " |", end="")
 
 
 if __name__ == "__main__":
