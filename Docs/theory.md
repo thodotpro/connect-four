@@ -1,4 +1,4 @@
-### Software Design
+## Software Design
 
 Overall software design is concerned with the expandability, maintenance, reusability and testability.
 
@@ -34,7 +34,34 @@ adapt to solve recurring design problems in our code. A pattern, however, is not
 or concept which can be used to solve a certain problem. The implementation of such a pattern is, thus, individual to 
 each problem.
 
-### Decorator
+### Bridge
+'Bridge' is a structural design pattern, which allows us to divide an extensive class into independent hierarchies,
+which can then be further developed separately. Extending an existing class hierarchy can very quickly turn into exponential
+growth, which does not conform with several fundamental software design principles. We should strive to make our code as 
+simple as possible to ensure readability and maintenance. For this purpose, the Bridge design pattern offers an effective
+alternative. Instead of creating new child classes for other child classes, we switch from inheritance to object composition
+and divide these structures into independent class hierarchies, with the original class merely referencing objects of the 
+new class instead of incorporating them.
+
+For example, a client has asked for a messaging system which allows users to send messages via multiple platforms (SMS, 
+Email, app push notifications, etc.) and further support different message types (regular messages, alerts, promotional
+messages, etc.). If we were to link all platforms with all types of messages we'd end up with one extensive class, composed
+of various subclasses and their subclasses. Regular messages with SMS, regular messages with Email, regular messages with
+push notifications, alters with SMS, alerts with... and so on and so forth. To avoid this enormous concoction of repetitive
+code we would split our class into two hierarchies. One for the message type and one for the message platform. This will 
+allow us to develop each class independently without having to change the other. In our example the message type functions
+as the abstraction, what the system does, or in our case what kind of message is sent, whereas the message platform acts
+as the implementation, how the system does sth., or how the message is sent. Instead of having to code every possible
+message type - message platform combination we can make use of the Bridge pattern and dynamically combine our dimensions
+and link every message type with every message platform. Furthermore, adding new messages types or new platforms will no
+longer require changes to existing code and can, thus, be incorporated without difficulty.
+
+To sum up, in order to increase understandability of a code we can use the Bridge design pattern to split classes into 
+separate hierarchies. This will not only help with the readability but also make it easier to incorporate subsequent 
+changes as these do not need to be applied across one bulk of a class which will, in addition, inevitably facilitate 
+maintenance. 
+
+
 
 ### Template Method
 
