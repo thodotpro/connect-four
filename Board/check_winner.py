@@ -19,7 +19,7 @@ class CheckWinner(Board):
                     return True
     #vertical
         for vert in range(Board.rows):
-            for hor in range(Board.dcolumns - 3):
+            for hor in range(Board.columns - 3):
                 if Board.printBoard[hor][vert] == self.token and Board.printBoard[hor][vert + 1] == self.token and Board.printBoard[hor][vert + 2] == self.token and Board.printBoard[hor][vert + 3] == self.token:
                     print(f"\n{token}WINS!")
                     return True
