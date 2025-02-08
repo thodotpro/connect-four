@@ -10,4 +10,7 @@ class EmptySlot(Board, ConvertCoordinates):
         self.new_coord = new_coord
         if self.board[self.new_coord[0]][self.new_coord[1]] == "🔴":
             return False
-        elif 
+        elif self.board[new_coord[0]][self.new_coord[1]] == "🟡":
+            return False
+        else:
+            return True
