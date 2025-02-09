@@ -1,52 +1,61 @@
 from Board.board import Board
+
 class CheckWinner(Board):
     """In order to establish a winner, we need to check the rows for previously placed token. The game Connect 4
-    is won, if 4 token are placed next to each other, either in a row, column or diagonally - thus, we need
-    to check all four (diagonally top right to bottom left and top left to bottom right) possible connections.
+    is won, if 4 token are placed next to each other, either in a row, column, or diagonally.
+    We will use a method which takes the parameter 'token' and implements four 'for' loops to check whether
+    there are 3 adjacent tokens to the last one placed."""
 
-    We will use a method, which takes the parameter 'token' and implement four 'for' loops to check whether there
-    are 3 adjacent tokens to the last one placed."""
-    def __init__(self):
-        super().__init__()
+    def __init__(self, board):
+        self.board = board
+        self.rows = len(board)
+        self.columns = len(board[0])
+
+    def win_assessment(self, token):
+        # Check for horizontal win
+        for row in range(self.rows):
+            for col in range(self.columns - 3):
+                if self.board[row][col] == token and self.board[row][col + 1] == token and self.board[row][col + 2] == token and self.board[row][col + 3] == token:
+                    print(f"\n{token} WINS!")
+                    return True
+        return False
+
+    def win_assessment_vertical(self, token):
+        # Check for vertical win
+        for row in range(self.rows - 3):
+            for col in range(self.columns):
+                if self.board[row][col] == token and self.board[row + 1][col] == token and self.board[row + 2][col] == token and self.board[row + 3][col] == token:
+                    print(f"\n{token} WINS!")
+                    return True
+        return False
+
+    def win_assessment_diagonal_lr(self, token):
+        # Check for diagonal win
+        for row in range(self.rows - 3):
+            for col in range(self.columns - 3):
+                if self.board[row][col] == token and self.board[row + 1][col + 1] == token and self.board[row + 2][col + 2] == token and self.board[row + 3][col + 3] == token:
+                    print(f"\n{token} WINS!")
+                    return True
+        return False
 
 
-    #horizontal
-    class CheckWinner(Board):
-        def __init__(self):
-            super().__init__()
+    def win_assessment_diagonal_rl(self, token):
+        # Check for counter diagonal win
+        for row in range(3, self.rows):
+            for col in range(self.columns - 3):
+                if self.board[row][col] == token and self.board[row - 1][col + 1] == token and self.board[row - 2][col + 2] == token and self.board[row - 3][col + 3] == token:
+                    print(f"\n{token} WINS!")
+                    return True
+        return False
 
-        def win_assessment(self, token):
-            self.token = token
-            # Horizontal Check: Ensure we don't go out of bounds (stop at self.columns - 4)
-            for vert in range(self.rows):
-                for hor in range(self.columns - 3):  # Ensure hor + 3 stays within bounds
-                    if self.board[vert][hor] == self.token and self.board[vert][hor + 1] == self.token and \
-                            self.board[vert][hor + 2] == self.token and self.board[vert][hor + 3] == self.token:
-                        print(f"\n{token} WINS!")
-                        return True
+    def check_win(self, token):
+        # Check for win
+        if (self.win_assessment(token) or
+                self.win_assessment_vertical(token) or
+                self.win_assessment_diagonal_lr(token) or
+                self.win_assessment_diagonal_rl(token)):
+            return True
+        return False
 
-            # Vertical Check: Ensure we don't go out of bounds (stop at self.rows - 4)
-            for vert in range(self.rows - 3):  # Ensure vert + 3 stays within bounds
-                for hor in range(self.columns):
-                    if self.board[vert][hor] == self.token and self.board[vert + 1][hor] == self.token and \
-                            self.board[vert + 2][hor] == self.token and self.board[vert + 3][hor] == self.token:
-                        print(f"\n{token} WINS!")
-                        return True
-
-            # Diagonal (Top-Right to Bottom-Left) Check
-            for vert in range(self.rows - 3):  # Ensure vert + 3 stays within bounds
-                for hor in range(3, self.columns):  # Ensure hor - 3 stays within bounds
-                    if self.board[vert][hor] == self.token and self.board[vert + 1][hor - 1] == self.token and \
-                            self.board[vert + 2][hor - 2] == self.token and self.board[vert + 3][hor - 3] == self.token:
-                        print(f"\n{token} WINS!")
-                        return True
-
-            # Diagonal (Top-Left to Bottom-Right) Check
-            for vert in range(self.rows - 3):  # Ensure vert + 3 stays within bounds
-                for hor in range(self.columns - 3):  # Ensure hor + 3 stays within bounds
-                    if self.board[vert][hor] == self.token and self.board[vert + 1][hor + 1] == self.token and \
-                            self.board[vert + 2][hor + 2] == self.token and self.board[vert + 3][hor + 3] == self.token:
-                        print(f"\n{token} WINS!")
-                        return True
-
-            return False
+    if __name__ == '__main__':
+        pass
