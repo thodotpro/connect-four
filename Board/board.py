@@ -13,10 +13,15 @@ class Board:
                       ["", "", "", "", "", "", ""],
                       ["", "", "", "", "", "", ""],
                       ["", "", "", "", "", "", ""],
-                      ["", "", "", "", "", "", ""],
-                      ["", "", "", "", "", "", ""]]
+                      ["🔴", "", "", "", "", "", ""],
+                      ["🟡", "🔴", "", "", "", "", ""]]
+        self.letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+        self.player1 = "🔴"
+        self.player2 = "🟡"
+        self.turn = 1
+        self.token = self.player1
 
-    def printBoard(self):
+    def print_board(self):
         """the function board uses a 'for' loop for the graphical representation of the board - including labels for
         rows and columns"""
         print("\n      A    B    C    D    E    F    G  ", end="") #'end=""' breaks the line
@@ -33,6 +38,18 @@ class Board:
         print("\n   +----+----+----+----+----+----+----+")
 
 
+
+    def next_turn(self):
+        # odd turn: token changes to player 2, turn adds 1
+        if self.turn % 2 == 1:
+            self.turn += 1
+            self.token = self.player2
+        # even turn: token changes to player 1, turn adds 1
+        elif self.turn % 2 == 0:
+            self.turn += 1
+            self.token = self.player1
+
+
 if __name__ == "__main__":
     board = Board()
-    board.printBoard()
+    board.print_board()
