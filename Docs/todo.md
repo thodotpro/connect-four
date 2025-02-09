@@ -37,7 +37,7 @@ Research and test programming outside the repository
     Claudia: decicion to eliminate classes and merge all functions into one file
 
 09.02.2025:
-S
+
     Claudia: cleanup repository
 
 
