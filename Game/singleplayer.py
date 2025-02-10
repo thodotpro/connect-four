@@ -4,6 +4,10 @@ from Board.board import Board
 from Board.checkwinner import CheckWinner
 
 class Singleplayer(Board):
+    '''
+    In singleplayer mode the user can play connect 4 against a computer. The computer picks a move based on the best available move.
+    The computer should favor winning before blocking the opponent.
+    '''
     def __init__(self):
         super().__init__()
         self.player1 = "🔴"
