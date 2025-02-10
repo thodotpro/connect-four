@@ -184,34 +184,35 @@ class Singleplayer(Board):
         pass
 
     def check_for_four(self):
-        # block opponent: +50
+        # block opponent: +80
         # get four: +100
         pass
 
-    def main(self):
-        check_winner = CheckWinner(self.board)
+    def main():
+        board = Singleplayer()
 
-        while self.turn <= 42:
+        check_winner = CheckWinner(board.board)
+
+        while board.turn <= 42:
             time.sleep(1)
-            self.print_board()
-            self.moves()
-            self.poss_moves()
-            print(f"Turn {self.turn}:")
-            self.pick_square()  # This will now properly ask for input or select AI's move.
-            self.place_pick()
+            board.print_board()
+            board.moves()
+            board.poss_moves()
+            print(f"Turn {board.turn}:")
+            board.pick_square()  # This will now properly ask for input or select AI's move.
+            board.place_pick()
 
-            if check_winner.check_win(self.token):
-                self.print_board()
+            if check_winner.check_win(board.token):
+                board.print_board()
                 break
 
-            if self.turn == 42:
+            if board.turn == 42:
                 print("DRAW!")
-                self.print_board()
+                board.print_board()
                 break
             time.sleep(1)
-            self.turn += 1  # Increment turn
+            board.turn += 1  # Increment turn
 
 
 if __name__ == "__main__":
-    board = Singleplayer()
-    board.main()
+    Singleplayer.main()
