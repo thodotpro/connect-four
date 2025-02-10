@@ -29,6 +29,17 @@ Research and test programming outside the repository
 06.02.2025: 
     
     Repository created (Thomas), cloned and branched. Starting work on branch: bits and pieces from test programming added.
+    Thomas: takes over single player mode plus research on how to make the opponent stronger
+    Claudia: multi player mode + control functions (winner, empty slots etc.)
+
+08.02.2025:
+    
+    Claudia: decicion to eliminate classes and merge all functions into one file
+
+09.02.2025:
+
+    Claudia: cleanup repository
+
 
 
 
