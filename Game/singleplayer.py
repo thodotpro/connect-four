@@ -189,29 +189,28 @@ class Singleplayer(Board):
         pass
 
     def main():
-        board = Singleplayer()
+        single = Singleplayer()
+        check_winner = CheckWinner(single.board)
 
-        check_winner = CheckWinner(board.board)
-
-        while board.turn <= 42:
+        while single.turn <= 42:
             time.sleep(1)
-            board.print_board()
-            board.moves()
-            board.poss_moves()
-            print(f"Turn {board.turn}:")
-            board.pick_square()  # This will now properly ask for input or select AI's move.
-            board.place_pick()
+            single.print_board()
+            single.moves()
+            single.poss_moves()
+            print(f"Turn {single.turn}:")
+            single.pick_square()  # This will now properly ask for input or select AI's move.
+            single.place_pick()
 
-            if check_winner.check_win(board.token):
-                board.print_board()
+            if check_winner.check_win(single.token):
+                single.print_board()
                 break
 
-            if board.turn == 42:
+            if single.turn == 42:
                 print("DRAW!")
-                board.print_board()
+                single.print_board()
                 break
             time.sleep(1)
-            board.turn += 1  # Increment turn
+            single.next_turn()
 
 
 if __name__ == "__main__":
