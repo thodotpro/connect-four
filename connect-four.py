@@ -186,4 +186,4 @@ if __name__ == "__main__":
         Singleplayer.main()
     else:
         print("Invalid Input, please enter 'S' for Single- or 'M' for Multiplayer Mode: ")
-    # print_board()
+    print_board()

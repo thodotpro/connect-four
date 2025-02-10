@@ -40,6 +40,12 @@ Research and test programming outside the repository
 
     Claudia: cleanup repository
 
+10.02.2025:
+
+    - final merge - putting code together and making it work (magically)
+    - unanimous decicion to neglect unit test due to rather poor time management
+
+
 
 
 
