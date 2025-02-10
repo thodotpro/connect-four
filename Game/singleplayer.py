@@ -5,8 +5,7 @@ from Board.checkwinner import CheckWinner
 
 class Singleplayer(Board):
     '''
-    In singleplayer mode the user can play connect 4 against a computer. The computer picks a move based on the best available move.
-    The computer should favor winning before blocking the opponent.
+    In singleplayer mode the user can play connect 4 against a computer. The computer picks a move based on the best move available.
     '''
     def __init__(self):
         super().__init__()
@@ -17,17 +16,23 @@ class Singleplayer(Board):
         self.all_moves = list()
         self.all_poss_moves = list()
         self.best_moves = {
-            5: [(4, 3), (3, 4), (3, 3), (3, 5), (2, 2), (2, 3), (2, 4)],
-            4: [(5, 3), (4, 2), (4, 4), (5, 2)],
-            3: [(5, 4), (1, 3), (1, 3), (1, 4)],
-            2: [(5, 1), (5, 5), (4, 1), (4, 5), (3, 1), (3, 5), (2, 1), (2, 5), (1, 1), (1, 5)],
-            1: [(5, 0), (5, 6), (4, 0), (4, 6), (3, 0), (3, 6), (2, 0), (2, 6), (1, 0), (1, 6),
-                (0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6)]}
+            10: [(3,3),(2,3)],
+            9: [(2,2),(2,4)],
+            8: [(3,2), (3,4),(4,3)],
+            6: [(4,2), (4,4),(3,1), (3,5), (2,1), (2,5)],
+            4: [(4,1), (4,5), (5,3)],
+            3: [(5,2), (5,4)],
+            2: [(5,1), (5,5), (1,1), (1,2), (1,3), (1,4), (1,5)],
+            1: [(5,1), (4,1), (3,1), (2,1), (1,1), (0,1), (0,1), (0,2), (0,3), (0,4), (0,5), (0,6),
+                (1,6), (2,6), (3,6), (4,6)]}
         self.score = int()
         self.best_score = int()
         self.best_move = tuple()
         self.pick = tuple()
         self.turn = 1
+
+        def __repr__(self):
+            return f"Best move: {self.best_move} with score: {self.score}. Turn: {self.turn}. Move: {self.pick}"
 
     def moves(self):
         # Appends all moves as tuple into a list
@@ -45,6 +50,7 @@ class Singleplayer(Board):
         return self.all_poss_moves
 
     def score_moves(self):
+        # Looks for the best scored move within all possible moves
         scored_moves = []
         for move in self.all_poss_moves:
             x, y = move
@@ -57,6 +63,7 @@ class Singleplayer(Board):
         return scored_moves
 
     def pick_best_move(self):
+        # Picks the best possible moves in scored_moves list
         scored_moves = self.score_moves()
         if not scored_moves:
             self.best_move = random.choice(self.all_poss_moves)
@@ -65,18 +72,19 @@ class Singleplayer(Board):
         return self.best_move
 
     def valid(self, pick: tuple):
+        # Returns False if a non empty square is picked
         x, y = pick
         if self.board[x][y] != "":
             return False
         return True
 
     def pick_square(self):
-        # Player 1's move (human)
+        # Player 1 picks move
         if self.turn % 2 == 1:
-            print(f"Player 1's (🔴) turn!")
+            print(f"Your (🔴) turn!")
             self.pick = input("Select square for placement (e.g., a5 | q for quit): ").upper()
 
-            if self.pick == "Q":    # quit
+            if self.pick == "Q":
                 print("Quitting...")
                 time.sleep(2)
                 quit()
@@ -87,22 +95,21 @@ class Singleplayer(Board):
                     break
             else:
                 print("Invalid input.")
-                return self.pick_square()  # Prompt again if invalid
+                return self.pick_square()
 
             if not self.pick[1:].isdigit() or int(self.pick[1]) < 0 or int(self.pick[1]) >= len(self.board):
                 print("Invalid input.")
-                return self.pick_square()  # Prompt again if invalid row
+                return self.pick_square()
 
             self.x = int(self.pick[1])  # Row position
 
-            # Ensure the move is within the board boundaries
             if (self.x, self.y) not in self.poss_moves():
                 print("Invalid move.")
-                return self.pick_square()  # Prompt again if invalid move
+                return self.pick_square()
 
             return self.x, self.y
 
-        # AI's move (Player 2)
+        # Computer picks move
         elif self.turn % 2 == 0:
             print("AI's turn (🟡)!")
             self.best_move = self.pick_best_move()
@@ -110,12 +117,14 @@ class Singleplayer(Board):
             return self.x, self.y
 
     def place_pick(self):
-        if self.turn % 2 == 1:  # Player 1's turn
+        # Player1 piece placement
+        if self.turn % 2 == 1:
             if (self.x, self.y) in self.poss_moves():
                 self.token = "🔴"
                 self.board[self.x][self.y] = self.player1
             else:
                 print("Invalid move.")
+        # Player2 (Computer) piece placement
         elif self.turn % 2 == 0:
             if (self.x, self.y) in self.poss_moves():
                 self.token = "🟡"
@@ -123,6 +132,7 @@ class Singleplayer(Board):
             else:
                 print("Invalid move.")
 
+    ### AI Code Start ###
     def score_board(self):
         scored_moves = []
 
@@ -169,9 +179,7 @@ class Singleplayer(Board):
         elif count == 2:
             return 100  # Good potential
         return 0  # No significant potential
-
-
-
+        ### AI Code End ###
 
     def check_for_two(self):
         # block opponent: +10
@@ -187,6 +195,7 @@ class Singleplayer(Board):
         # block opponent: +80
         # get four: +100
         pass
+
 
     def main():
         single = Singleplayer()
